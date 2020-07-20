@@ -6,6 +6,8 @@
                     type="text"
                     v-model="filter"
                     :placeholder="filterPlaceholder"
+                    v-on:keyup.enter=   "testAlfonso"
+
             >
             <a
                     v-if="filter"
@@ -93,6 +95,8 @@
             filterInputClass: { default: () => settings.filterInputClass },
             filterPlaceholder: { default: () => settings.filterPlaceholder },
             filterNoResults: { default: () => settings.filterNoResults },
+
+            pOnlySearchOnEnter: {type:  Boolean, default: false,},
         },
 
         data: () => ({
@@ -139,6 +143,7 @@
 
         watch: {
             filter() {
+
                 if (!this.usesLocalData) {
                     this.mapDataToRows();
                 }
@@ -239,19 +244,25 @@
                 await this.mapDataToRows();
             },
 
-            async mapDataToRows() {
-                const data = this.usesLocalData
-                    ? this.prepareLocalData()
-                    : await this.fetchServerData();
+            async mapDataToRows(valor) {
+                if( valor   !== undefined     ||  this.filter === ''){
+                    const data = this.usesLocalData
+                        ? this.prepareLocalData()
+                        : await this.fetchServerData();
 
-                let rowId = 0;
+                    let rowId = 0;
 
-                this.rows = data
-                    .map(rowData => {
-                        rowData.vueTableComponentInternalRowId = rowId++;
-                        return rowData;
-                    })
-                    .map(rowData => new Row(rowData, this.columns));
+                    this.rows = data
+                        .map(rowData => {
+                            rowData.vueTableComponentInternalRowId = rowId++;
+                            return rowData;
+                        })
+                        .map(rowData => new Row(rowData, this.columns));
+                }else{
+                    return ()=>{};
+                }
+
+
             },
 
             prepareLocalData() {
@@ -261,6 +272,7 @@
             },
 
             async fetchServerData() {
+                
                 const page = this.pagination && this.pagination.currentPage || 1;
 
                 const response = await this.data({
@@ -317,7 +329,11 @@
 			emitRowClick(row) {
 				this.$emit('rowClick', row);
 				this.$emit('row-click', row);
-			}
+			},
+
+            testAlfonso(payload){
+                this.mapDataToRows(true);
+            }
         },
     };
 </script>
