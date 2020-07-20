@@ -5,7 +5,7 @@ const settings = {
     headerClass: '',
     cellClass: '',
     filterInputClass: '',
-    filterPlaceholder: 'Filter table…',
+    filterPlaceholder: '1111111Filter table…',
     filterNoResults: 'There are no matching rows',
 };
 
