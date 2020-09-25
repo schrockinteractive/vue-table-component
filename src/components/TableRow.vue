@@ -5,6 +5,7 @@
             :row="row"
             :column="column"
             :key="column.id"
+             :pStyle="row.data.colorBakground"
         ></table-cell>
     </tr>
 </template>
@@ -13,7 +14,7 @@
     import TableCell from './TableCell';
 
     export default {
-        props: ['columns', 'row'],
+         props: ['columns', 'row', 'pStyle'],
 
         components: {
             TableCell,
