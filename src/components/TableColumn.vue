@@ -27,6 +27,7 @@
 
             cellClass: { default: settings.cellClass },
             headerClass: { default: settings.headerClass },
+              pStyle: { },
         },
     };
 </script>
