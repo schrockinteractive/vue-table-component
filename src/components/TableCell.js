@@ -10,6 +10,10 @@ export default {
             data.class = props.column.cellClass;
         }
 
+        if (props.row.data.colorBakground) {
+            data.style = props.row.data.colorBakground;
+        }
+        
         if (props.column.template) {
             return createElement('td', data, props.column.template(props.row.data));
         }
